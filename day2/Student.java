@@ -11,9 +11,18 @@ import java.util.ArrayList;
 
 class Student{
     ArrayList<Student> list=new ArrayList<>();
-    String name="";
-    String id="";
-    int marks=0;
+    String name;
+    String id;
+    int marks;
+    Student(){
+
+    }
+
+    Student(String id,String name,int marks){
+        this.name=name;
+        this.id=id;
+        this.marks=marks;
+    }
 
     void addStudent(String id,String name,int marks){
         
@@ -23,27 +32,32 @@ class Student{
 
     void removeStudent(String search){
         for(Student s: list){
-            list.removeIf((s.id).equals(search));
+            if((s.id).equals(search)){
+                list.remove(s);
+                break;
+            }
         }
     }
 
     void updateStudent(Scanner sc){
+        System.out.print("Enter ID:");
         String id=sc.nextLine();
-        String name=sc.nextLine();
-        int marks=sc.nextInt();
         for(Student s: list){
             if((s.id).equals(id)){
-                s.name=name;
-                s.marks=marks;
+                System.out.print("Enter new Name:");
+                s.name=sc.nextLine();
+                 System.out.print("Enter new Marks:");
+                s.marks=sc.nextInt();
                 System.out.println("Student data up to date....");
                 break;
             }
         }
     }
 
-    void DisplayStudent(){
+    void displayStudent(){
+            System.out.println(" ID        NAME        Marks\n");
         for(Student s: list){
-            System.out.println(s);
+            System.out.println(s.id+"       "+s.name+"       "+s.marks);
         }
     }
 
@@ -57,15 +71,23 @@ class Student{
             System.out.println("3.Update Student.");
             System.out.println("4.Display Student.");
             System.out.println("5.Exit");
+            System.out.print("Choose Operations:");
             int op=sc.nextInt();
             switch(op){
-                case 1: String id=sc.nextLine();
+                case 1: System.out.print("Enter ID:");
+                        sc.nextLine();
+                        String id=sc.nextLine();
+                        System.out.print("Enter Name:");
                         String name=sc.nextLine();
+                        System.out.print("Enter Marks:");
                         int marks=sc.nextInt();
                         st.addStudent(id,name,marks);
                         System.out.println("Student Added successfully...");
                         break;
-                case 2: st.removeStudent();
+                case 2: sc.nextLine();
+                        System.out.print("Enter ID:");
+                        String search=sc.nextLine();
+                        st.removeStudent(search);
                         System.out.println("Student removed successfully...");
                         break;
                 case 3: st.updateStudent(sc);
