@@ -14,34 +14,42 @@ class Student{
     String name="";
     String id="";
     int marks=0;
-    Student(String name,String id,int marks){
-        this.name=name;
-        this.id=id;
-        this.marks=marks;
-    }
 
-    static void addStudent(id,name,marks){
+    void addStudent(String id,String name,int marks){
         
         Student ob=new Student(id,name,marks);
         list.add(ob);        
     }
 
-    static void removeStudent(String search){
+    void removeStudent(String search){
         for(Student s: list){
-            list.removeIf(s->id.equals(search));
+            list.removeIf((s.id).equals(search));
         }
     }
 
-    static void updateStudent(){
-
+    void updateStudent(Scanner sc){
+        String id=sc.nextLine();
+        String name=sc.nextLine();
+        int marks=sc.nextInt();
+        for(Student s: list){
+            if((s.id).equals(id)){
+                s.name=name;
+                s.marks=marks;
+                System.out.println("Student data up to date....");
+                break;
+            }
+        }
     }
 
-    static void searchStudent(){
-        
+    void DisplayStudent(){
+        for(Student s: list){
+            System.out.println(s);
+        }
     }
 
     public static void main(String[] args){
         Scanner sc=new Scanner(System.in);
+        Student st=new Student();
         do{
             System.out.println("|||||||||MENU|||||||||");
             System.out.println("1.Add Student.");
@@ -54,16 +62,16 @@ class Student{
                 case 1: String id=sc.nextLine();
                         String name=sc.nextLine();
                         int marks=sc.nextInt();
-                        addStudent(id,name,marks);
+                        st.addStudent(id,name,marks);
                         System.out.println("Student Added successfully...");
                         break;
-                case 2: removeStudent();
+                case 2: st.removeStudent();
                         System.out.println("Student removed successfully...");
                         break;
-                case 3: updateStudent();
+                case 3: st.updateStudent(sc);
                         System.out.println("Student data updated successfully...");
                         break;
-                case 4: searchStudent();
+                case 4: st.displayStudent();
                         break;
                 case 5: System.exit(0);
                         break;
