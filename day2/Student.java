@@ -24,8 +24,7 @@ class Student{
         this.marks=marks;
     }
 
-    void addStudent(String id,String name,int marks){
-        
+    void addStudent(String id,String name,int marks){   
         Student ob=new Student(id,name,marks);
         list.add(ob);        
     }
@@ -34,31 +33,47 @@ class Student{
         for(Student s: list){
             if((s.id).equals(search)){
                 list.remove(s);
-                break;
+                System.out.println("Student removed successfully...");
+                return;
             }
         }
+        System.out.println("Student not found....");
     }
 
     void updateStudent(Scanner sc){
+        sc.nextLine();
         System.out.print("Enter ID:");
         String id=sc.nextLine();
+        if(!uniqueId(id)){
+            System.out.println(" Student ID not found...");
+            return;
+        }
         for(Student s: list){
             if((s.id).equals(id)){
                 System.out.print("Enter new Name:");
                 s.name=sc.nextLine();
                  System.out.print("Enter new Marks:");
                 s.marks=sc.nextInt();
-                System.out.println("Student data up to date....");
+                System.out.println("Student data updated successfully...");
                 break;
             }
         }
     }
 
     void displayStudent(){
-            System.out.println(" ID        NAME        Marks\n");
+            System.out.println(" ID          NAME             Marks\n");
         for(Student s: list){
             System.out.println(s.id+"       "+s.name+"       "+s.marks);
         }
+    }
+
+    boolean uniqueId(String id){
+        for(Student s:list){
+            if((s.id).equals(id)){
+                return true;
+            }
+        }
+        return false;
     }
 
     public static void main(String[] args){
@@ -77,6 +92,10 @@ class Student{
                 case 1: System.out.print("Enter ID:");
                         sc.nextLine();
                         String id=sc.nextLine();
+                        if(st.uniqueId(id)){
+                            System.out.println("ID already exist...");
+                            break;
+                        }
                         System.out.print("Enter Name:");
                         String name=sc.nextLine();
                         System.out.print("Enter Marks:");
@@ -88,10 +107,8 @@ class Student{
                         System.out.print("Enter ID:");
                         String search=sc.nextLine();
                         st.removeStudent(search);
-                        System.out.println("Student removed successfully...");
                         break;
                 case 3: st.updateStudent(sc);
-                        System.out.println("Student data updated successfully...");
                         break;
                 case 4: st.displayStudent();
                         break;
