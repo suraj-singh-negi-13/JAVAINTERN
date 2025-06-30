@@ -15,6 +15,7 @@ public class Account{
     private float amount;
     ArrayList<Account> list=new ArrayList<>();
     private void addCustomer(Scanner sc){
+        sc.nextLine();
         Account ob=new Account();
         newCust(ob,sc);
         list.add(ob);
@@ -22,8 +23,11 @@ public class Account{
     }
     //deposit function is created.....
     private void deposit(Scanner sc){
-        amount=sc.nextFloat();
+        sc.nextLine();
+        System.out.print("Enter account number:");
         accno=sc.nextLine();
+        System.out.print("Enter deposit amount:");
+        amount=sc.nextFloat();
         for(Account ob:list){
             if((ob.accno).equals(accno) && amount>=1){
                 (ob.amount)+=amount;
@@ -36,8 +40,11 @@ public class Account{
 
     //Withdraw function is created.....
     private void withdraw(Scanner sc){
-        amount=sc.nextFloat();
+        sc.nextLine();
+        System.out.print("Enter account number:");
         accno=sc.nextLine();
+        System.out.print("Enter withdrawl amount:");
+        amount=sc.nextFloat();
         for(Account ob:list){
             if((ob.accno).equals(accno) && amount>=1 && amount<=ob.amount){
                 (ob.amount)-=amount;
@@ -50,6 +57,8 @@ public class Account{
 
     // Display the Account amount information .....
     private void displayAmount(Scanner sc){
+        sc.nextLine();
+        System.out.print("Enter account number:");
         accno=sc.nextLine();
         if(!accountExist(accno)){
             System.out.println("Account not exist...");
@@ -75,10 +84,9 @@ public class Account{
     private void newCust(Account ob,Scanner sc){
         System.out.print("Enter Customer Account number:");
         ob.accno=sc.nextLine();
-        sc.nextLine();
         if(accountExist(ob.accno)){
             System.out.println("Account already exist...Retry....");
-            newCust(ob,sc);
+            return;
         }
         System.out.print("Enter Customer name:");
         ob.name=sc.nextLine();
