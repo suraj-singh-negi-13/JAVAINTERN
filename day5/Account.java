@@ -4,6 +4,8 @@ Objective: Simulate basic bank operations using Java OOP.
 Tools :Java, VS Code, Terminal.
 Deliverables: Class-based Java program with transactions.
  */
+import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Account{
 
@@ -19,40 +21,50 @@ public class Account{
 
     }
     //deposit function is created.....
-    private void deposit(float amount,String accno){
-        for(Account ob: list){
-            if((ob.accno).equals(accno) && amount>=1){
-                (ob.amount)+=amount;
-                return;
-            }
+    private void deposit(Scanner sc){
+        amount=sc.nextFloat();
+        accno=sc.nextLine();
+        if(accountExist(accno) && amount>=1){
+            (ob.amount)+=amount;
+            return;
         }
-        System.out.println(" deposit minimum amount 1rs");
+        System.out.println(" deposit minimum 1rs amount....");
      }
     //Withdraw function is created.....
-    private void withdraw(float amount,String accno){
-        for(Account ob: list){
-            if((ob.accno).equals(accno) && amount>=1 && amount<=ob.amount){
-                (ob.amount)-=amount;
-                System.out.println("Amount withdraw Successfully....");
+    private void withdraw(Scanner sc){
+        /*amount=sc.nextFloat();
+        accno=sc.nextLine();
+        if(accountExist(accno) && amount>=1 && amount<=ob.amount){
+            (ob.amount)-=amount;
+            System.out.println("Amount withdraw Successfully....");
+            return;
+        }
+        System.out.println("account not matched or amount not sufficient...");*/
+    }
+    // Display the Account amount information .....
+    private void displayAmount(Scanner sc){
+        accno=sc.nextLine();
+        if(!accountExist(accno)){
+            System.out.println("Account not exist...");
+            return;
+        }
+        for(Student ob:list){
+            if((ob.accno).equals(accno)){
+                System.out.println("Name:"+ob.name+"\nbalance amount:"+ob.amount);
                 return;
             }
         }
-        System.out.println("account not matched or amount not sufficient...");
     }
-
-    private void displayAmount(String accNo){
-
-    }
-
+    //check account holder exist or not.....
     private boolean accountExist(String accno){
-        for(Student ob:list){
+        for(Account ob:list){
             if((ob.accno).equals(accno)){
                 return true;
             }
         }
         return false;
     }
-
+    //new costomer details....
     private void newCust(Account ob){
         System.out.print("Enter Customer Account number:");
         ob.accno=sc.nextLine();
@@ -68,6 +80,32 @@ public class Account{
         ob.amount=sc.nextFloat();
     }
     public static void main(String[] args){
-        
+        Scanner sc=new Scanner(System.in);
+        Account ac=new Account();
+        int op;
+        do{
+            System.out.println("************DETAILS*************\n");
+            System.out.println("1........ADD NEW CUSTOMER.......");
+            System.out.println("2.........DEPOSIT AMOUNT........");
+            System.out.println("3.........WITHDRAWL AMOUNT........");
+            System.out.println("4.........DISPLAY AMOUNT........");
+            System.out.println("5...............EXIT............\n");
+
+            System.out.print("Choose option:");
+            op=sc.nextInt();
+            switch(op){
+                case 1:ac.addCustomer();
+                    break;
+                case 2:ac.deposit(sc);
+                    break;
+                case 3:ac.withdraw(sc);
+                    break;
+                case 4:ac.displayAmount(sc);
+                    break;
+                case 5:System.exit(0);
+                    break;
+                default: System.out.println("Choose Correct Option....");
+            }
+        }while(true);
     }
 }
